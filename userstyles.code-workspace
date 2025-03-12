@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "StretchGemini",
+			"path": "./StretchGemini"
+		},
+		{
+			"name": "StretchGPT",
+			"path": "./StretchGPT",
+		}
+	],
+	"settings": {}
+}
