@@ -1,0 +1,57 @@
+/* ==UserStyle==
+@name           StretchGemini - Resizable Gemini Chat UI
+@author         Mike Thai <hey@mikethai.dev> (https://github.com/m1kethai)
+@description  Presets for expanding the width of Gemini's UI, plus some optional bonus enhancements to hide unwanted elements.
+@version         1.2.0
+@namespace   https://userstyles.world/style/21358/stretchgemini-resizable-chat-ui-width-for-gemini
+@preprocessor less
+@var select stretchFactor "🧘 Stretch/Width Preset" {
+    "Normal/disabled ⛔": "0",
+    "Breathing room 🤏": "1",
+    "Relaxed 🙆": "2",
+    "Spacious ✨*": "3",
+    "Maximum 🙌": "4"
+}
+@var checkbox unlockExtras "🔓 Unlock UI enhancements below 👇" 0
+@var checkbox hideDisclaimer "🙈 Hide: Hallucination disclaimer" 1
+@var checkbox hideAvatar "🙈 Hide: Inline chat avatars" 1
+==/UserStyle== */
+
+@-moz-document domain("gemini.google.com") {
+    html {
+        /* ===== EXPAND CHAT UI ===== */
+        .expandChatUI() when (@stretchFactor >=1) {
+            @defaultMw: 760px;
+            @widthMultiplier:
+            if((@stretchFactor =1), 1.33,
+                if((@stretchFactor =2), 1.66,
+                    if((@stretchFactor =3), 2.0, null
+                    )));
+            @adjustedMw: if(
+                (isnumber(@widthMultiplier)),
+                            (@defaultMw*@widthMultiplier),
+                            unset
+            );
+            &, &>user-query {
+                max-width: @adjustedMw;
+            }
+        }
+        div.conversation-container {
+            .expandChatUI() !important;
+        }
+
+        & when (@unlockExtras =1) {
+
+            /* ===== HIDE DISCLAIMER ===== */
+            hallucination-disclaimer when(@hideDisclaimer =1) {
+                > div p { display: none; }
+                margin-bottom: 0.75rem;
+            }
+
+            /* ===== HIDE GEMINI AVATAR ===== */
+            div.avatar-gutter when(@hideAvatar =1) {
+                display: none !important;
+            }
+        }
+    }
+}
