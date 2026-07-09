@@ -231,13 +231,12 @@
         }
 
         .colorize(@baseTheme: dark) when (@enableColorization =1) {
-            @customColor: if(
-                (@enableColorPicker =1 and iscolor(@pickerColor)),
-                @pickerColor,
-                if(iscolor(@colorPreset), @colorPreset, #303030) // fall back to default composer bg color if a valid color isn't set (which should never be possible)
-            );
-            @baseBg: if(@baseTheme =light, white, #212121);
+            @baseBg: if(@baseTheme =light, white, black);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
+            @customColor: if(
+                (@enableColorPicker =1 and iscolor(@pickerColor)), @pickerColor,
+                if(iscolor(@colorPreset), @colorPreset, #303030)
+            );
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
             @customBlend: .colorLib.blendVariant(@level: 2)[];
