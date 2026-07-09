@@ -5,20 +5,20 @@
 @description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor less
-@var select stretchFactor "🧘 Stretch Factor" {
+@var select stretchFactor "🧘 Stretch level" {
     "⛔ Disabled": "0",
     "🤏 Conservative": "1",
     "✨ Roomy": "2",
     "👹 Spacious*": "3",
     "🫨 Unrestricted": "4"
 }
-@var checkbox hideDisclaimer "⚠️ Hide disclaimer/warning (\"ChatGPT can make mistakes...\")" 0
+@var checkbox hideDisclaimer "⚠️ Hide hallucination disclaimer (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableChatBubbleStretch "🗯️ Enable message bubble expansion" 0
-@var checkbox enableColorization "🔓 Enable color customization features below" 0
-@var checkbox enableColorizeComposer "🌈 Colorize: Composer" 1
-@var checkbox enableColorizeMsgBubbles "🌈 Colorize: Message bubbles" 1
-@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (desktop only)" 0
-@var select colorPreset "🎨 Color Preset:" {
+@var checkbox enableColorization "🌈 Enable color customizations below 🔓" 0
+@var checkbox enableColorizeComposer "🌈 Composer/prompt input component" 1
+@var checkbox enableColorizeMsgBubbles "🌈 User message bubbles" 1
+@var checkbox enableColorizeMsgBg "🌈 User messages (replaces chat bubbles with full BG color behind your messages)" 0
+@var select colorPreset "🎨 Color preset:" {
     "Absinthe*": "#76b583",
     "Aged Sage": "#8da572",
     "Akira": "#840000",
@@ -84,7 +84,7 @@
     "Wisteria": "#a48cbc",
     "Yoshi Egg": "#9cd97c",
 }
-@var checkbox enableColorPicker "🎨 Override color preset above with custom color (experimental!)" 0
+@var checkbox enableColorPicker "🎨 Override color preset with a totally custom color" 0
 @var color pickerColor "🎨 Custom color" #599c7b
 
 ==/UserStyle== */
