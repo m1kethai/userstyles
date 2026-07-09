@@ -201,12 +201,13 @@
             }
 
             .blendVariant(@c1: @customBg, @c2: @customFg, @level) {
-                @blendAmt:
-                    if(@level =1, 11%,
-                    if(@level =2, 69%,
-                    if(@level =3, 91%,
+                @blendAmt: if(
+                    @level =1, 11%, if(
+                    @level =2, 67%, if(
+                    @level =3, 83%, if(
+                    @level =4, 91%,
                     50%
-                )));
+                ))));
                 @result: mix(@c1, @c2, @blendAmt);
             }
 
