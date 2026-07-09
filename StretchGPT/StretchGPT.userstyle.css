@@ -18,6 +18,7 @@
 @var checkbox enableColorizeComposer "🌈 Composer/prompt input component" 1
 @var checkbox enableColorizeMsgBubbles "🌈 User message bubbles" 1
 @var checkbox enableColorizeMsgBg "🌈 User messages (replaces chat bubbles with full BG color behind your messages)" 0
+@var checkbox enableColorizeFullBg "🌈 Full BG (body, header, sidebar) [experimental] " 0
 @var select colorPreset "🎨 Color preset:" {
     "Absinthe*": "#76b583",
     "Aged Sage": "#8da572",
@@ -289,13 +290,26 @@
                 }
             }
 
-            //* Text selection colors
-            // (active by default when colorization is enabled)
-            &, * {
+            & when (@enableColorizeFullBg =1) {
+                @subtleTintedBg: .colorLib.blendVariant(@c1: @baseBg, @c2: @customBg, @level: 3)[];
+                html,
+                body,
+                header,
+                #thread-bottom-container {
+                    --main-surface-primary: @subtleTintedBg !important;
+                    --bg-secondary-surface: var(--main-surface-primary);
+                    --sidebar-surface-primary: var(--main-surface-primary);
+                }
+            }
+
+            &,
+            * {
+            	//* Selected text colors
                 &::selection {
-                background-color: @customSelectionBg;
-                color: @customSelectionFg !important;
-            }}
+                    background-color: @customSelectionBg;
+                    color: @customSelectionFg !important;
+                }
+            }
         }
 
         &.dark { .colorize(@baseTheme: dark) }
