@@ -302,10 +302,6 @@
         &.light { .colorize(@baseTheme: light) }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
-        // Fixes old UI bug where the left side of numbers get cut off in every <ol>
-        // TODO: test if this has been fully resolved @ all breakpoints
-        @{-msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
-            padding-left: 1.85em;
-        }
+
     }
 }
