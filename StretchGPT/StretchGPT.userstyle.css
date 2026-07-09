@@ -1,0 +1,311 @@
+/* ==UserStyle==
+@name StretchGPT: Extra Wide ChatGPT Conversations
+@version 7.4
+@author m1kethai
+@description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
+@namespace https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
+@preprocessor less
+@var select stretchFactor "🧘 Stretch Factor" {
+    "⛔ Disabled": "0",
+    "🤏 Conservative": "1",
+    "✨ Roomy": "2",
+    "👹 Spacious*": "3",
+    "🫨 Unrestricted": "4"
+}
+@var checkbox hideDisclaimer "⚠️ Hide disclaimer/warning (\"ChatGPT can make mistakes...\")" 0
+@var checkbox enableChatBubbleStretch "🗯️ Enable message bubble expansion" 0
+@var checkbox enableColorization "🔓 Enable color customization features below" 0
+@var checkbox enableColorizeComposer "🌈 Colorize: Composer" 1
+@var checkbox enableColorizeMsgBubbles "🌈 Colorize: Message bubbles" 1
+@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (desktop only)" 0
+@var select colorPreset "🎨 Color Preset:" {
+    "Absinthe*": "#76b583",
+    "Aged Sage": "#8da572",
+    "Akira": "#840000",
+    "Amaretto": "#ab6f60",
+    "Ancient Gold": "#b59410",
+    "Aztek": "#293432",
+    "Black Pearl": "#1e272c",
+    "Black Sabbath": "#220022",
+    "Blue Moss": "#5D737E",
+    "Cardamom": "#aaaa77",
+    "Caviar": "#292a2d",
+    "Chrysanthemum": "#c35458",
+    "Cloud City": "#88a2c7",
+    "Cyber Grape": "#58427C",
+    "Cyprus": "#545a3e",
+    "Dark and Stormy": "#353f51",
+    "Deep Jungle": "#1A2421",
+    "Deep Space": "#2D3142",
+    "Dusty Turquoise": "#5a8a89",
+    "Earl Grey": "#a6978a",
+    "Emerald": "#0f380f",
+    "Falco Feathers": "#5c8dc8",
+    "FF06B5": "#FF06B5",
+    "Galactic Empire": "#5e4d7e",
+    "Gameboy Teal": "#0ABFBC",
+    "Gondor Stone": "#7d746a",
+    "Gotham Slate": "#555d68",
+    "Hellboy Crimson": "#a02b2b",
+    "Hoth Snow": "#d8d9d6",
+    "Hyrule Green": "#6d9f4b",
+    "Japanese Violet": "#5B3256",
+    "Kirby": "#e285b8",
+    "Lobster Bisque": "#FFDAB9",
+    "Majora's Mask": "#803a9a",
+    "Master Emerald": "#6abf7d",
+    "Miso": "#f6a04d",
+    "Mushroom Kingdom": "#d95850",
+    "Mystic Amethyst": "#9b7bbd",
+    "Nimbus 2001": "#7f888e",
+    "Obsidian Ash": "#343434",
+    "Pacific Rim": "#3d7fac",
+    "Prince": "#4b384c",
+    "Purple Haze": "#807396",
+    "Raccoon City": "#6a6966",
+    "Raichu": "#fc8c2c",
+    "Rose Quartz": "#e9a1b0",
+    "Sailor Moon": "#ffee00",
+    "Sakura Bloom": "#ff7b9c",
+    "Sanguine": "#6c110e",
+    "Sapphired": "#5b82a6",
+    "Sharp Indigo": "#48007c",
+    "Simpsons Sunshine": "#e5c23a",
+    "Slytherin Jade": "#599c7b",
+    "Sonic Blue": "#4a90d9",
+    "Spartan Armor": "#3a6b56",
+    "Steampunk Leather": "#6f3b34",
+    "Super Blue Lavender": "#5a5b9f",
+    "Tatooine Dusk": "#d99152",
+    "Tokyo Midnight": "#1a1a2e",
+    "Wasabi Paste": "#afd77f",
+    "Wasabi Peanut": "#b4c79c",
+    "Winnie": "#e2b64d",
+    "Wisteria": "#a48cbc",
+    "Yoshi Egg": "#9cd97c",
+}
+@var checkbox enableColorPicker "🎨 Override color preset above with custom color (experimental!)" 0
+@var color pickerColor "🎨 Custom color" #599c7b
+
+==/UserStyle== */
+@-moz-document domain("chatgpt.com") {
+    html {
+        /* ----- BREAKPOINTS ----- */
+        @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
+        @sm-max: ~"screen and (max-width: 767px)";
+        @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
+        @md-up: ~"screen and (min-width: 768px)";
+        @md-max: ~"screen and (max-width: 1023px)";
+        @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
+        @lg-up: ~"screen and (min-width: 1024px)";
+        @lg-max: ~"screen and (max-width: 1535px)";
+        @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
+        @xl-up: ~"screen and (min-width: 1536px)";
+        @xl-max: ~"screen and (max-width: 2047px)";
+        @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
+        @xxl-up: ~"screen and (min-width: 2048px)";
+        @xxl-max: ~"screen and (max-width: 2559px)";
+        @xxxl: ~"screen and (min-width: 2560px)";
+        @mobile: @sm-max;
+        @desktop: @md-up;
+
+        /* ----- SELECTOR VARS ----- */
+        @-chat: .composer-parent;
+        @-msg: .composer-parent section[data-turn];
+        @-msg--user: .composer-parent section[data-turn="user"];
+        @-msg--gpt: .composer-parent section[data-turn="assistant"];
+        @-msg--sm: .text-message;
+        @-msg-outer: .composer-parent section[data-turn] > div;
+        @-msg-inner: .composer-parent section[data-turn] > div > div;
+        @-msg-bubble: .composer-parent section[data-turn] .user-message-bubble-color;
+        @-composer: .w-full[data-type="unified-composer"] > div > div;
+        @-header: .composer-parent > .sticky.h-header-height;
+        @-header--sm: .sticky.h-header-height.md\:hidden;
+        @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+        @-footer: .composer-parent .md\:px-\[60px\];
+
+        /* ===== CORE FUNCTIONALITY/STRETCH ===== */
+        & when (@stretchFactor >=1) {
+            @breakpointChatWidths: {
+                1: 85%, 80%, 70%;
+                2: 95%, 90%, 80%;
+                3: 97%, 90%, 90%;
+                4: 98%, 98%, 98%;
+            };
+            @viewportWidths:
+                if(@stretchFactor =1, @breakpointChatWidths[1],
+                if(@stretchFactor =2, @breakpointChatWidths[2],
+                if(@stretchFactor =3, @breakpointChatWidths[3],
+                @breakpointChatWidths[4]
+            )));
+
+            @{-chat} {
+                --stretchWidth: 95%;
+                @media @md { --stretchWidth: max(48rem, extract(@viewportWidths, 1)) }
+                @media @lg { --stretchWidth: extract(@viewportWidths, 2) }
+                @media @xl-up { --stretchWidth: extract(@viewportWidths, 3) }
+            }
+            @{-msg-outer} { --thread-content-margin: 0; }
+            @{-msg-inner} { --thread-content-max-width: var(--stretchWidth) !important; }
+        }
+
+        /* ===== STRETCH USER MESSAGE BUBBLES ===== */
+        & when (@enableChatBubbleStretch =1) {
+            --user-chat-width: 100% !important;
+        }
+
+        /* ===== HIDE DISCLAIMER ===== */
+        @{-footer} when(@hideDisclaimer =1) {
+            @-textDiv: &>div:only-child;
+            // unset MH from `.min-h-8`
+            min-height: unset;
+            // reset padding (.p-2) & add a small bottom margin
+            padding: 0;
+            margin-bottom: 0.5rem;
+            @{-textDiv} { display: none !important; }
+        }
+
+        /* ===== COLORIZE ===== */
+        .colorLib() {
+            //* Make minor adjustments to @customColor so it's never too harsh and looks as good as possible for every element it can be applied to.
+            .adjustedCC(@bt, @bbg) {
+                @lightThemeCC: mix(@bbg, @customColor, 90%);
+                @sat: round(saturation(@customColor));
+                //: Any color with saturation below this threshold remains unchanged.
+                @satThreshold: 75%;
+                @blendMultiplier: 3;
+                @blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
+                @darkBlend: if((@sat <= @satThreshold),
+                    @customColor,
+                    mix(@customColor, @bbg, (100% - (@blendMultiplier * (@sat - @satThreshold))))
+                );
+                @darkThemeCC: @darkBlend;
+
+                //* Use the blended color for light themes and the faded color for dark themes.
+                @result: if(@bt =light, @lightThemeCC, @darkThemeCC);
+            }
+
+            //* Set text/foreground color to a predefined dark or light color, to maximize contrast against its background (using common threshold: 43%).
+            .accessibleFg(@bgc, @l: #ececec, @d: #0d0d0d) {
+                // TODO: add option to directly use @customColor as the FG color if it passes the accessible contrast threshold
+                @result: contrast(@bgc, @l, @d);
+            }
+
+            //* Returns a color that is either lighter + more saturated or darker + less saturated than the input color, depending on the input color's overall harshness.
+            .selectionVariant(@c) {
+                @l: round(lightness(@c));
+                @s: round(saturation(@c));
+                @vD: saturate(darken(@c, (.33*(100%-@l))), (.33*(100%-@s)));
+                @vL: saturate(lighten(@c, (.33*(100%-@l))), (.33*(100%-@s)));
+                @result: if(@l > 45%, @vD, @vL);
+            }
+
+            .blendVariant(@c1: @customBg, @c2: @customFg, @level) {
+                @blendAmt:
+                    if(@level =1, 11%,
+                    if(@level =2, 69%,
+                    if(@level =3, 91%,
+                    50%
+                )));
+                @result: mix(@c1, @c2, @blendAmt);
+            }
+
+            .softlightVariant(@c1: @customBg, @c2: @customFg) {
+                @result: softlight(@c1, @c2)
+            }
+        }
+
+        //* Resets default CSS theme vars so they don't conflict with any custom colors applied
+        .revertBuiltInThemeVars() {
+            --theme-user-msg-bg: revert;
+            --theme-user-msg-text: revert;
+            --theme-submit-btn-bg: revert;
+            --theme-submit-btn-text: revert;
+            --theme-secondary-btn-bg: revert;
+            --theme-secondary-btn-text: revert;
+            --theme-user-selection-bg: revert;
+            --theme-attribution-highlight-bg: revert;
+            --theme-entity-accent: revert;
+            --default-theme-user-selection-bg: revert;
+        }
+
+        .colorize(@baseTheme: dark) when (@enableColorization =1) {
+            @customColor: if(
+                (@enableColorPicker =1 and iscolor(@pickerColor)),
+                @pickerColor,
+                if(iscolor(@colorPreset), @colorPreset, #303030) // fall back to default composer bg color if a valid color isn't set (which should never be possible)
+            );
+            @baseBg: if(@baseTheme =light, white, #212121);
+            @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
+            @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
+            @customFg: .colorLib.accessibleFg(@customBg)[];
+            @customBlend: .colorLib.blendVariant(@level: 2)[];
+            @customBlendLite: .colorLib.blendVariant(@level: 1)[];
+            @customBlendHeavy: .colorLib.blendVariant(@level: 3)[];
+            @customSelectionBg: .colorLib.selectionVariant(@customBg)[];
+            @customSelectionFg: .colorLib.accessibleFg(@customSelectionBg)[];
+
+            .apply() {
+                .revertBuiltInThemeVars() !important;
+                --text-primary: @customFg !important;
+                --text-secondary: @customBlend !important;
+                --text-tertiary: @customBlend !important;
+                --text-placeholder: @customBlend !important;
+
+                background-color: @customBg;
+                color: @customFg;
+            }
+
+            @{-composer} when (@enableColorizeComposer =1) {
+                .apply();
+
+                @submitBtnBg: @customSelectionBg;
+                @submitBtnBg: .colorLib.softlightVariant()[];
+                @submitBtnText: @customBlendLite;
+                @voiceBtnBg: @customBlendHeavy;
+                @voiceBtnText: @customFg;
+
+                button {
+                    &#composer-submit-button,
+                    &.composer-submit-button-color {
+                        --theme-submit-btn-bg: @submitBtnBg;
+                        --theme-submit-btn-text: @submitBtnText;
+                    }
+                    &.composer-secondary-button-color {
+                        --theme-secondary-btn-bg: @voiceBtnBg;
+                        --theme-secondary-btn-text: @voiceBtnText;
+                    }
+                }
+            }
+
+            @{-msg-bubble} when (@enableColorizeMsgBubbles =1) or (@enableColorizeMsgBg =1) {
+                .apply();
+            }
+
+            & when (@enableColorizeMsgBg =1) {
+                --message-surface: transparent;
+                @media @md-up {
+                    @{-msg--user} { .apply(); }
+                }
+            }
+
+            //* Text selection colors
+            // (active by default when colorization is enabled)
+            &, * {
+                &::selection {
+                background-color: @customSelectionBg;
+                color: @customSelectionFg !important;
+            }}
+        }
+
+        &.dark { .colorize(@baseTheme: dark) }
+        &.light { .colorize(@baseTheme: light) }
+
+        /* ===== MISC ENHANCEMENTS/FIXES ===== */
+        // Fixes old UI bug where the left side of numbers get cut off in every <ol>
+        // TODO: test if this has been fully resolved @ all breakpoints
+        @{-msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+            padding-left: 1.85em;
+        }
+    }
+}
