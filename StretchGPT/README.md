@@ -1,6 +1,6 @@
 # **StretchGPT**
 
-> https://github.com/m1kethai/StretchGPT-Userstyle
+> https://github.com/m1kethai/userstyles/tree/main/StretchGPT
 
 **Enhances the web ChatGPT experience for all viewports by expanding the usable chat area, making a few UI tweaks for improved readability, and enabling dynamic custom colorization for key elements - all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and all non-core features are toggleable.**
 
@@ -31,41 +31,41 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 ### **Changelog:**
 
 **[6.2.5]**
-- Fix: broken selector - chat disclaimer 
-  
+- Fix: broken selector - chat disclaimer
+
 **[6.2.4]**
 - Switch default color preset from "Aged Sage" to "Super Blue Lavender"
-  
+
 **[6.2.3]**
 - Improve formatting in options menu
-  
+
 **[6.2.2]**
 - Tweak max-width scaling for the different stretch modes. Set to 100% fixed width <768px.
 - Update/rearrange settings menu items
-  
+
 **[6.2.1]**
 - Fix: "Hide disclaimer" feature
-  
+
 **[6.2]**
 - Fix: broken selector - chat entries/messages
-  
+
 **[6.1]**
 - Added 4 "Stretchiness" options to the userstyle config menu, to allow users to choose how wide the chat area expands based on personal preference
 - The dropdown also includes a "Disable" option for those who are only interested in using the extra features.
 - Tweaked the default max chat widths (now called "Comfy") so that it maxes out at 80% for the largest breakpoints.
-  
+
 **[6.0]**
 - Fixed all the broken things for both desktop and mobile VPs
 - Added some more cool custom color presets
 - Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row).
-  
+
 **[5.1]**
 - Bugfix (ChatGPT update) - custom color no longer applying to the prompt input field
 - Colorize feature now fully working and enabled for "Light" ChatGPT theme
 - Added an accessible text mixin to ensure that the text is always readable against any custom background color
 - Split custom color options into two separate ones (user message BG and input/textarea BG)
 - Cleaned up/replaced some outdated selectors to accommodate recent changes
-- 
+-
 **[5.0.2]**
 - Loosened up the horizontal message padding a bit
 - Adjusted the BG color tint logic for improved contrast accessibility with more colors
