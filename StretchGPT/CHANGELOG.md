@@ -1,5 +1,65 @@
 ### **Changelog**
 
+#### **[7.5]**
+- Add new custom color feature: "Full BG"
+- Update `@baseBg` to match ChatGPT's new dark theme background (pure black)
+- Adjust `.blendVariant` color mix values
+- Remove old `<ol>` spacing fix
+- Update option labels
+- Remove boilerplate license
+- Migrate StretchGPT files to `StretchGPT/` subdirectory
+
+#### **[7.3]**
+- Fix: update/add selectors for composer submit/speech buttons
+- Rename chat bubble stretch option
+- Remove all fancy spacing (to address VS Code issues)
+- Remove/rename some colors
+- Fix messed up whitespaces
+- Update option labels
+- Add new `compliment` mixin for dynamic selection background color
+- Fix custom color functionality
+
+#### **[7.2]**
+- Update selector vars for message bubble & composer
+- Apply border-radius to message container for extra-small screens when full message background color is enabled
+- Rework stretch approach to adapt to ChatGPT's new sizing implementation and CSS variables
+- Rename option labels
+
+#### **[7.0]**
+- Redo "stretch" implementation by overriding new ChatGPT CSS variables
+- Add custom theme color picker option
+- Add 2 options for new custom color override feature
+- Rework custom color "de-harshing" using smarter color blending instead of transparency
+- Add 30 new color presets and update docs
+- Fix inconsistent width resizing for user message container
+- Improve composer colorization and colorize tertiary text
+- Full message background color: make the bubble match its background
+- Hide horizontal overflow for the main thread component
+- Remove devmode toggle
+
+#### **[6.6]**
+- Add a master toggle for unlocking all "bonus" options
+- Restructure rules and guards, and disable all bonus features by default
+- Add "hide avatars" option
+- Update selectors, 'hide disclaimer' styles
+- Selector fix: composer
+
+#### **[6.5]**
+- Fixed everything that broke after recent ChatGPT updates and added new "full-width chat bubble" feature
+- Move core functionality disable option back into "Stretch factor" dropdown
+- Fix footer disclaimer selectors
+- Remove "hide avatars" feature and associated styles (scrapped)
+
+#### **[6.4]**
+- Update option labels' text, formatting & menu order
+- Fix: hide footer disclaimer on new chat/"composer" view
+- Fix: input colorization @ xs BP
+- Restore missing metadata lines
+- Move changelog to own file
+
+#### **[6.3]**
+- Fix: selector var (input colorize broke)
+
 #### **[6.2.5]**
 - Fix: broken selector (chat disclaimer)
 
