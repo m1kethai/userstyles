@@ -3,7 +3,7 @@
 @version 7.5
 @author m1kethai
 @description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
-@namespace https://github.com/m1kethai/userstyles/tree/main/StretchGPT
+@namespace https://github.com/m1kethai/userstyles/tree/dev/StretchGPT
 @preprocessor less
 @var select stretchFactor "🧘 Stretch level" {
     "⛔ Disabled": "0",
