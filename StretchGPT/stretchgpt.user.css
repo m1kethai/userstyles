@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name StretchGPT: Extra Wide ChatGPT Conversations
-@version 7.5
+@version 7.5.1-dev
 @author m1kethai
 @description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace https://github.com/m1kethai/userstyles/tree/dev/StretchGPT
@@ -123,7 +123,7 @@
         @-header: .composer-parent > .sticky.h-header-height;
         @-header--sm: .sticky.h-header-height.md\:hidden;
         @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-        @-footer: .composer-parent .md\:px-\[60px\];
+        @-disclaimerEl: #thread-bottom-container [data-testid="thread-disclaimer"];
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
         & when (@stretchFactor >=1) {
@@ -156,14 +156,8 @@
         }
 
         /* ===== HIDE DISCLAIMER ===== */
-        @{-footer} when(@hideDisclaimer =1) {
-            @-textDiv: &>div:only-child;
-            // unset MH from `.min-h-8`
-            min-height: unset;
-            // reset padding (.p-2) & add a small bottom margin
-            padding: 0;
-            margin-bottom: 0.5rem;
-            @{-textDiv} { display: none !important; }
+        @{-disclaimerEl} when(@hideDisclaimer =1) {
+            opacity: 0 !important;
         }
 
         /* ===== COLORIZE ===== */
@@ -304,7 +298,7 @@
 
             &,
             * {
-            	//* Selected text colors
+                //* Selected text colors
                 &::selection {
                     background-color: @customSelectionBg;
                     color: @customSelectionFg !important;
