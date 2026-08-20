@@ -123,7 +123,7 @@
         @-header: .composer-parent > .sticky.h-header-height;
         @-header--sm: .sticky.h-header-height.md\:hidden;
         @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-        @-disclaimerEl: #thread-bottom-container [data-testid="thread-disclaimer"];
+        @-disclaimerEl: .sticky [data-testid="thread-disclaimer"];
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
         & when (@stretchFactor >=1) {
