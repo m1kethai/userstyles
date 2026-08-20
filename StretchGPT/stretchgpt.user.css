@@ -1,25 +1,21 @@
 /* ==UserStyle==
 @name StretchGPT [DEV]
-@version 7.5.1-dev.2
+@version 7.5.1-dev.3
 @author m1kethai
 @description A solid collection of flexible and robust UI enhancements for ChatGPT. Expand the chat window to whatever size you want, hide annoying elements, and apply adaptive color customizations to any/all major UI elements/components. Every feature is independently configurable and optional/toggleable, with most disabled by default.
 @namespace https://github.com/m1kethai/userstyles/tree/dev/StretchGPT
 @preprocessor less
-@var select stretchFactor "🧘 Stretch level" {
-    "⛔ Disabled": "0",
-    "🤏 Conservative": "1",
-    "✨ Roomy": "2",
-    "👹 Spacious*": "3",
-    "🫨 Unrestricted": "4"
+@var select stretchFactor "🧘 Chat UI width" {
+    "Normal/disabled 💩": "0",
+    "Some wiggle room 🤏": "1",
+    "Roomy ✨": "2",
+    "Spacious 👹*": "3",
+    "Max 💯": "4"
 }
-@var checkbox hideDisclaimer "⚠️ Hide hallucination disclaimer (\"ChatGPT can make mistakes...\")" 1
 @var checkbox enableChatBubbleStretch "🗯️ Enable message bubble expansion" 0
-@var checkbox enableColorization "🌈 Enable color customizations below 🔓" 0
-@var checkbox enableColorizeFullBg "🌈 Full BG tint (body, header, sidebar)" 1
-@var checkbox enableColorizeComposer "🌈 Composer/prompt input component" 1
-@var checkbox enableColorizeMsgBubbles "🌈 User message bubbles" 1
-@var checkbox enableColorizeMsgBg "🌈 User messages (replaces chat bubbles with full BG color behind your messages)" 0
-@var select colorPreset "🎨 Color preset:" {
+@var checkbox hideDisclaimer "🕶️ Hide hallucination disclaimer (\"ChatGPT can make mistakes...\")" 1
+@var checkbox enableColorization "🔓🌈 Enable color/theme customization (unlocks all theme-related options below)" 0
+@var select colorPreset "🎨 Theme preset" {
     "Absinthe*": "#76b583",
     "Aged Sage": "#8da572",
     "Akira": "#840000",
@@ -85,8 +81,12 @@
     "Wisteria": "#a48cbc",
     "Yoshi Egg": "#9cd97c",
 }
-@var checkbox enableColorPicker "🎨 Override color preset with a totally custom color" 0
-@var color pickerColor "🎨 Custom color" #599c7b
+@var checkbox enableColorPicker "🔓🎨 Enable 100% custom theme color (⚠️ overrides theme color preset!)" 0
+@var color pickerColor "🎨 Custom theme color" #599c7b
+@var checkbox enableColorizeFullBg "🌈 Tint major UI elements with custom color (body, header, sidebar, etc.)" 1
+@var checkbox enableColorizeComposer "🌈 Composer/prompt input component" 1
+@var checkbox enableColorizeMsgBubbles "🌈 User message bubbles" 1
+@var checkbox enableColorizeMsgBg "🌈 User message BG (removes bubble styling & applies theme color to the area behind it)" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
