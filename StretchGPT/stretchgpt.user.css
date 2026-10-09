@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name StretchGPT [DEV]
-@version 7.5.2-dev.0
+@version 7.5.3-dev.0
 @author m1kethai
 @description A solid collection of flexible and robust UI enhancements for ChatGPT. Expand the chat window to whatever size you want, hide annoying elements, and apply adaptive color customizations to any/all major UI elements/components. Every feature is independently configurable and optional/toggleable, with most disabled by default.
 @namespace https://github.com/m1kethai/userstyles/tree/dev/StretchGPT
@@ -113,7 +113,7 @@
                 1: 85%, 80%, 70%;
                 2: 95%, 90%, 80%;
                 3: 97%, 90%, 90%;
-                4: 99%, 99%, 99%;
+                4: 100%, 100%, 100%;
             };
             @viewportWidths: if(@stretchFactor =1, @breakpointChatWidths[1], if(@stretchFactor =2, @breakpointChatWidths[2], if(@stretchFactor =3, @breakpointChatWidths[3], @breakpointChatWidths[4])));
 
@@ -127,8 +127,14 @@
                 --thread-content-responsive-max-width: var(--stretchWidth) !important;
                 --thread-content-margin: 0rem !important;
                 --thread-composer-bottom-inset: 0 !important;
-                // TODO: use this native variable for all the "stretch" logic/values (responsively customize the thread padding instead of its width)  
-                --thread-body-inline-padding: 0rem !important; 
+
+                // TODO: use this native variable for all the "stretch" logic/values (responsively customize the thread padding instead of its width)
+                @threadBodyBasePadding: calc(@stretchFactor*0.2rem);
+                --thread-body-inline-padding: @threadBodyBasePadding; //0rem !important;
+                padding-block-end: @threadBodyBasePadding;
+                >div.flex.min-h-full {
+                    padding-block-end: 0;
+                }
             }
         }
 
@@ -138,7 +144,9 @@
         }
 
         /* ===== HIDE DISCLAIMER ===== */
-        @{-disclaimer} when(@hideDisclaimer =1) { display: none; }
+        @{-disclaimer} when(@hideDisclaimer =1) {
+            visibility: hidden;
+        }
 
         /* ===== COLORIZE ===== */
         .colorLib() {
